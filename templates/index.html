@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="app_title">Shiksha Leap</title>
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#4A90E2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Shiksha Leap">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/static/images/logo.png">
+    <link rel="apple-touch-icon" href="/static/images/icon-192.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Language Selector -->
+    <div class="language-selector">
+        <select id="languageSelector">
+            <option value="en">English</option>
+            <option value="hi">हिन्दी</option>
+            <option value="ta">தமிழ்</option>
+            <option value="od">ଓଡିଆ</option>
+        </select>
+    </div>
+
+    <!-- Offline Indicator -->
+    <div id="offlineIndicator" class="offline-indicator hidden">
+        <span data-i18n-key="offline_message">You are offline. Some features may be limited.</span>
+    </div>
+
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Shiksha Leap" class="logo-img">
+                <h1 data-i18n-key="app_name">Shiksha Leap</h1>
+            </div>
+            <p class="tagline" data-i18n-key="tagline">Learn. Play. Grow.</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="welcome-section">
+                <h2 data-i18n-key="welcome_title">Welcome to Learning</h2>
+                <p data-i18n-key="welcome_subtitle">Enter your mobile number or email to continue</p>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form">
+                <div class="form-group">
+                    <label for="contactInput" data-i18n-key="contact_label">Mobile Number or Email</label>
+                    <input type="text" id="contactInput" class="form-input" placeholder="Enter mobile or email">
+                </div>
+                
+                <button id="sendOtpBtn" class="btn btn-primary" data-i18n-key="send_otp">Send OTP</button>
+            </div>
+
+            <!-- OTP Verification (Hidden initially) -->
+            <div id="otpSection" class="auth-form hidden">
+                <div class="success-message">
+                    <span data-i18n-key="otp_sent">OTP has been sent to your contact</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="otpInput" data-i18n-key="otp_label">Enter OTP</label>
+                    <input type="text" id="otpInput" class="form-input" placeholder="000000" maxlength="6">
+                </div>
+                
+                <button id="verifyOtpBtn" class="btn btn-primary" data-i18n-key="verify_otp">Verify OTP</button>
+                <button id="backBtn" class="btn btn-secondary" data-i18n-key="back">Back</button>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3 data-i18n-key="feature_games">Interactive Games</h3>
+                    <p data-i18n-key="feature_games_desc">Learn through fun educational games</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 data-i18n-key="feature_offline">Works Offline</h3>
+                    <p data-i18n-key="feature_offline_desc">Continue learning without internet</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 data-i18n-key="feature_achievements">Achievements</h3>
+                    <p data-i18n-key="feature_achievements_desc">Earn badges and compete with friends</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p data-i18n-key="footer_text">© 2024 Shiksha Leap. Made for Rural India.</p>
+        </footer>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

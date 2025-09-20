@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="grade_view_title">Grade {{ grade }} - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="history.back()">← <span data-i18n-key="back">Back</span></button>
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Shiksha Leap" class="logo-img">
+                <h1 data-i18n-key="app_name">Shiksha Leap</h1>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Grade Header -->
+            <div class="grade-header">
+                <div class="grade-badge">{{ grade }}</div>
+                <div class="grade-info">
+                    <h2 data-i18n-key="grade_learning_hub">Grade {{ grade }} Learning Hub</h2>
+                    <p data-i18n-key="choose_subject">Choose a subject to start learning</p>
+                </div>
+            </div>
+
+            <!-- Subjects Section -->
+            <div class="section">
+                <h3 data-i18n-key="subjects">Subjects</h3>
+                <div class="subjects-grid" id="subjectsGrid">
+                    <!-- Subjects will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Recommended Games -->
+            <div class="section">
+                <h3 data-i18n-key="recommended_games">Recommended for You</h3>
+                <div class="games-grid" id="gamesGrid">
+                    <!-- Games will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- AI Recommendations -->
+            <div class="ai-recommendations">
+                <div class="ai-header">
+                    <div class="ai-icon">🤖</div>
+                    <div>
+                        <h3 data-i18n-key="ai_recommendations">AI Recommendations</h3>
+                        <p data-i18n-key="personalized_suggestions">Personalized suggestions based on your learning</p>
+                    </div>
+                </div>
+                <div class="recommendations-grid">
+                    <div class="recommendation-card">
+                        <h4 data-i18n-key="strengthen_math">Strengthen Math Skills</h4>
+                        <p data-i18n-key="focus_algebra">Focus on algebraic expressions based on recent performance</p>
+                    </div>
+                    <div class="recommendation-card">
+                        <h4 data-i18n-key="explore_science">Explore Science Concepts</h4>
+                        <p data-i18n-key="try_chemistry">Try chemistry experiments to complement physics knowledge</p>
+                    </div>
+                    <div class="recommendation-card">
+                        <h4 data-i18n-key="reading_practice">Reading Practice</h4>
+                        <p data-i18n-key="improve_comprehension">Improve comprehension with grade-appropriate passages</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        const currentGrade = {{ grade }};
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSubjects();
+            loadRecommendedGames();
+        });
+
+        function loadSubjects() {
+            const subjects = [
+                { id: 'mathematics', name: 'Mathematics', icon: '🔢', color: '#4A90E2', progress: 75 },
+                { id: 'science', name: 'Science', icon: '🔬', color: '#50C878', progress: 60 },
+                { id: 'english', name: 'English', icon: '📚', color: '#FF6B6B', progress: 85 },
+                { id: 'hindi', name: 'Hindi', icon: '🇮🇳', color: '#FFD93D', progress: 70 },
+                { id: 'social_studies', name: 'Social Studies', icon: '🌍', color: '#9B59B6', progress: 55 }
+            ];
+
+            const grid = document.getElementById('subjectsGrid');
+            grid.innerHTML = '';
+
+            subjects.forEach(subject => {
+                const div = document.createElement('div');
+                div.className = 'subject-card';
+                div.style.borderColor = subject.color;
+                div.onclick = () => openSubject(subject.id);
+                
+                div.innerHTML = `
+                    <div class="subject-icon" style="background-color: ${subject.color}20; color: ${subject.color}">
+                        ${subject.icon}
+                    </div>
+                    <div class="subject-info">
+                        <h4 data-i18n-key="${subject.id}">${subject.name}</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${subject.progress}%; background-color: ${subject.color}"></div>
+                        </div>
+                        <div class="progress-text">${subject.progress}% Complete</div>
+                    </div>
+                `;
+                
+                grid.appendChild(div);
+            });
+        }
+
+        function loadRecommendedGames() {
+            const games = [
+                { id: 'algebra_basics', name: 'Algebra Basics', subject: 'Mathematics', difficulty: 'easy', icon: '🧮' },
+                { id: 'atomic_structure', name: 'Atomic Structure', subject: 'Science', difficulty: 'medium', icon: '⚛️' },
+                { id: 'grammar_master', name: 'Grammar Master', subject: 'English', difficulty: 'easy', icon: '📝' }
+            ];
+
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+
+            games.forEach(game => {
+                const div = document.createElement('div');
+                div.className = 'game-card';
+                div.onclick = () => playGame(game.id);
+                
+                const difficultyColor = game.difficulty === 'easy' ? '#50C878' : 
+                                      game.difficulty === 'medium' ? '#FFD93D' : '#FF6B6B';
+                
+                div.innerHTML = `
+                    <div class="game-icon">${game.icon}</div>
+                    <div class="game-info">
+                        <h4 data-i18n-key="${game.id}">${game.name}</h4>
+                        <p class="game-subject">${game.subject}</p>
+                        <span class="difficulty-badge" style="background-color: ${difficultyColor}20; color: ${difficultyColor}" 
+                              data-i18n-key="${game.difficulty}">${game.difficulty}</span>
+                    </div>
+                `;
+                
+                grid.appendChild(div);
+            });
+        }
+
+        function openSubject(subjectId) {
+            // Navigate to subject-specific games/quizzes
+            window.location.href = `/games/grade_${currentGrade}/${subjectId}/`;
+        }
+
+        function playGame(gameId) {
+            // Navigate to specific game
+            window.location.href = `/game/grade_${currentGrade}/${gameId}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="quiz_player_title">Quiz Player - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="history.back()">← <span data-i18n-key="back">Back</span></button>
+            <div class="quiz-progress">
+                <span id="questionNumber">1</span> / <span id="totalQuestions">10</span>
+            </div>
+            <div class="quiz-score">
+                <span data-i18n-key="score">Score</span>: <span id="quizScore">0</span>
+            </div>
+        </header>
+
+        <main class="quiz-container">
+            <!-- Quiz Loading -->
+            <div id="quizLoading" class="quiz-loading">
+                <div class="spinner"></div>
+                <p data-i18n-key="loading_quiz">Loading quiz...</p>
+            </div>
+
+            <!-- Quiz Content -->
+            <div id="quizContent" class="quiz-content hidden">
+                <div class="question-card">
+                    <h3 id="questionText">Question will appear here</h3>
+                    <div id="optionsContainer" class="options-container">
+                        <!-- Options will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="quiz-controls">
+                    <button id="prevBtn" class="btn btn-secondary" onclick="previousQuestion()" disabled>
+                        <span data-i18n-key="previous">Previous</span>
+                    </button>
+                    <button id="nextBtn" class="btn btn-primary" onclick="nextQuestion()" disabled>
+                        <span data-i18n-key="next">Next</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Quiz Complete Modal -->
+        <div id="quizCompleteModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 data-i18n-key="quiz_complete">Quiz Complete!</h2>
+                <div class="quiz-results">
+                    <div class="result-circle">
+                        <div class="percentage" id="finalPercentage">0%</div>
+                    </div>
+                    <div class="result-details">
+                        <div class="result-item">
+                            <span data-i18n-key="correct_answers">Correct Answers</span>: 
+                            <span id="correctCount">0</span> / <span id="totalCount">0</span>
+                        </div>
+                        <div class="result-item">
+                            <span data-i18n-key="final_score">Final Score</span>: <span id="finalQuizScore">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="retakeQuiz()" data-i18n-key="retake">Retake</button>
+                    <button class="btn btn-primary" onclick="continueToNext()" data-i18n-key="continue">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        let quizState = {
+            questions: [],
+            currentQuestion: 0,
+            score: 0,
+            answers: [],
+            startTime: Date.now()
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuiz();
+        });
+
+        async function loadQuiz() {
+            const quizPath = '{{ quiz_path }}';
+            
+            try {
+                // Simulate quiz loading
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                // Load mock quiz data
+                loadMockQuiz();
+                
+                // Hide loading, show quiz
+                document.getElementById('quizLoading').classList.add('hidden');
+                document.getElementById('quizContent').classList.remove('hidden');
+                
+                displayQuestion();
+                
+            } catch (error) {
+                console.error('Error loading quiz:', error);
+                document.getElementById('quizLoading').innerHTML = '<p>Error loading quiz. Please try again.</p>';
+            }
+        }
+
+        function loadMockQuiz() {
+            quizState.questions = [
+                {
+                    question: "What is the capital of India?",
+                    options: ["Mumbai", "New Delhi", "Kolkata", "Chennai"],
+                    correct: 1
+                },
+                {
+                    question: "Which planet is known as the Red Planet?",
+                    options: ["Venus", "Mars", "Jupiter", "Saturn"],
+                    correct: 1
+                },
+                {
+                    question: "What is 12 × 8?",
+                    options: ["84", "96", "104", "88"],
+                    correct: 1
+                },
+                {
+                    question: "Who wrote 'Romeo and Juliet'?",
+                    options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"],
+                    correct: 1
+                },
+                {
+                    question: "What is the largest ocean on Earth?",
+                    options: ["Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean"],
+                    correct: 3
+                }
+            ];
+
+            document.getElementById('totalQuestions').textContent = quizState.questions.length;
+            quizState.answers = new Array(quizState.questions.length).fill(-1);
+        }
+
+        function displayQuestion() {
+            const question = quizState.questions[quizState.currentQuestion];
+            
+            document.getElementById('questionNumber').textContent = quizState.currentQuestion + 1;
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.onclick = () => selectOption(index);
+                
+                // Highlight if previously selected
+                if (quizState.answers[quizState.currentQuestion] === index) {
+                    button.classList.add('selected');
+                }
+                
+                optionsContainer.appendChild(button);
+            });
+            
+            updateNavigationButtons();
+        }
+
+        function selectOption(optionIndex) {
+            // Remove previous selection
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            event.target.classList.add('selected');
+            
+            // Store answer
+            quizState.answers[quizState.currentQuestion] = optionIndex;
+            
+            // Enable next button
+            document.getElementById('nextBtn').disabled = false;
+        }
+
+        function previousQuestion() {
+            if (quizState.currentQuestion > 0) {
+                quizState.currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (quizState.currentQuestion < quizState.questions.length - 1) {
+                quizState.currentQuestion++;
+                displayQuestion();
+            } else {
+                // Quiz complete
+                completeQuiz();
+            }
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = quizState.currentQuestion === 0;
+            
+            if (quizState.currentQuestion === quizState.questions.length - 1) {
+                nextBtn.textContent = 'Finish';
+                nextBtn.disabled = quizState.answers[quizState.currentQuestion] === -1;
+            } else {
+                nextBtn.innerHTML = '<span data-i18n-key="next">Next</span>';
+                nextBtn.disabled = quizState.answers[quizState.currentQuestion] === -1;
+            }
+        }
+
+        function completeQuiz() {
+            // Calculate score
+            let correctAnswers = 0;
+            quizState.questions.forEach((question, index) => {
+                if (quizState.answers[index] === question.correct) {
+                    correctAnswers++;
+                }
+            });
+            
+            quizState.score = Math.round((correctAnswers / quizState.questions.length) * 100);
+            
+            // Update modal
+            document.getElementById('finalPercentage').textContent = quizState.score + '%';
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('totalCount').textContent = quizState.questions.length;
+            document.getElementById('finalQuizScore').textContent = quizState.score;
+            
+            // Log quiz performance
+            logQuizPerformance(correctAnswers);
+            
+            // Show modal
+            document.getElementById('quizCompleteModal').classList.remove('hidden');
+        }
+
+        async function logQuizPerformance(correctAnswers) {
+            const quizData = {
+                game_id: '{{ quiz_path }}',
+                game_type: 'quiz',
+                subject: 'General Knowledge',
+                grade: 8,
+                score: correctAnswers,
+                max_score: quizState.questions.length,
+                time_spent: Math.floor((Date.now() - quizState.startTime) / 1000)
+            };
+
+            try {
+                await fetch('/api/game-log', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(quizData)
+                });
+            } catch (error) {
+                console.error('Error logging quiz performance:', error);
+                // Store offline for later sync
+                storeOfflineLog(quizData);
+            }
+        }
+
+        function storeOfflineLog(quizData) {
+            const offlineLogs = JSON.parse(localStorage.getItem('offlineGameLogs') || '[]');
+            offlineLogs.push({
+                ...quizData,
+                timestamp: Date.now()
+            });
+            localStorage.setItem('offlineGameLogs', JSON.stringify(offlineLogs));
+        }
+
+        function retakeQuiz() {
+            // Reset quiz state
+            quizState.currentQuestion = 0;
+            quizState.score = 0;
+            quizState.answers = new Array(quizState.questions.length).fill(-1);
+            quizState.startTime = Date.now();
+            
+            // Hide modal and restart
+            document.getElementById('quizCompleteModal').classList.add('hidden');
+            displayQuestion();
+        }
+
+        function continueToNext() {
+            history.back();
+        }
+    </script>
+</body>
+</html>

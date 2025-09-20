@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="profile_title">My Profile - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="history.back()">← <span data-i18n-key="back">Back</span></button>
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Shiksha Leap" class="logo-img">
+                <h1 data-i18n-key="app_name">Shiksha Leap</h1>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <div class="avatar-circle">
+                        {{ student.first_name[0] }}{{ student.last_name[0] }}
+                    </div>
+                </div>
+                <div class="profile-info">
+                    <h2>{{ student.first_name }} {{ student.last_name }}</h2>
+                    <p>Grade {{ student.grade }} • {{ student.school_name }}</p>
+                    <p>{{ student.district }}, {{ student.state }}</p>
+                </div>
+            </div>
+
+            <!-- Achievements Section -->
+            <div class="section">
+                <h3 data-i18n-key="my_achievements">My Achievements</h3>
+                <div class="achievements-grid" id="achievementsGrid">
+                    <!-- Achievements will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Learning Progress -->
+            <div class="section">
+                <h3 data-i18n-key="learning_progress">Learning Progress</h3>
+                <div class="progress-chart">
+                    <canvas id="progressChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Subject Performance -->
+            <div class="section">
+                <h3 data-i18n-key="subject_performance">Subject Performance</h3>
+                <div class="subject-stats">
+                    <div class="subject-stat">
+                        <div class="subject-icon" style="background-color: #4A90E220; color: #4A90E2">🔢</div>
+                        <div class="subject-info">
+                            <h4 data-i18n-key="mathematics">Mathematics</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%; background-color: #4A90E2"></div>
+                            </div>
+                            <span>85%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subject-stat">
+                        <div class="subject-icon" style="background-color: #50C87820; color: #50C878">🔬</div>
+                        <div class="subject-info">
+                            <h4 data-i18n-key="science">Science</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 78%; background-color: #50C878"></div>
+                            </div>
+                            <span>78%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="subject-stat">
+                        <div class="subject-icon" style="background-color: #FF6B6B20; color: #FF6B6B">📚</div>
+                        <div class="subject-info">
+                            <h4 data-i18n-key="english">English</h4>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 92%; background-color: #FF6B6B"></div>
+                            </div>
+                            <span>92%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Settings -->
+            <div class="section">
+                <h3 data-i18n-key="account">Account</h3>
+                <div class="settings-list">
+                    <div class="setting-item" onclick="editProfile()">
+                        <div class="setting-icon">✏️</div>
+                        <div class="setting-info">
+                            <h4 data-i18n-key="edit_profile">Edit Profile</h4>
+                        </div>
+                        <div class="setting-arrow">→</div>
+                    </div>
+                    
+                    <div class="setting-item" onclick="exportData()">
+                        <div class="setting-icon">📊</div>
+                        <div class="setting-info">
+                            <h4 data-i18n-key="export_data">Export My Data</h4>
+                        </div>
+                        <div class="setting-arrow">→</div>
+                    </div>
+                    
+                    <div class="setting-item" onclick="logout()">
+                        <div class="setting-icon">🚪</div>
+                        <div class="setting-info">
+                            <h4 data-i18n-key="logout">Logout</h4>
+                        </div>
+                        <div class="setting-arrow">→</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/chart.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAchievements();
+            loadProgressChart();
+        });
+
+        function loadAchievements() {
+            // Mock achievements data
+            const achievements = [
+                { name: 'Math Master', description: 'Complete 10 math games', icon: '🧮', earned: true },
+                { name: 'Science Explorer', description: 'Explore 5 science topics', icon: '🔬', earned: true },
+                { name: '7-Day Streak', description: 'Learn for 7 consecutive days', icon: '🔥', earned: true },
+                { name: 'Perfect Score', description: 'Get 100% in any quiz', icon: '💯', earned: false },
+                { name: 'Grade Master', description: 'Complete all subjects in your grade', icon: '🎓', earned: false },
+                { name: 'Speed Demon', description: 'Complete a game in under 1 minute', icon: '⚡', earned: false }
+            ];
+
+            const grid = document.getElementById('achievementsGrid');
+            grid.innerHTML = '';
+
+            achievements.forEach(achievement => {
+                const div = document.createElement('div');
+                div.className = `achievement-card ${achievement.earned ? 'earned' : 'locked'}`;
+                
+                div.innerHTML = `
+                    <div class="achievement-icon">${achievement.icon}</div>
+                    <div class="achievement-info">
+                        <h4 data-i18n-key="${achievement.name.toLowerCase().replace(/\s+/g, '_')}">${achievement.name}</h4>
+                        <p data-i18n-key="${achievement.description.toLowerCase().replace(/\s+/g, '_')}">${achievement.description}</p>
+                    </div>
+                    ${achievement.earned ? '<div class="earned-badge">✓</div>' : '<div class="locked-badge">🔒</div>'}
+                `;
+                
+                grid.appendChild(div);
+            });
+        }
+
+        function loadProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [{
+                        label: 'Learning Progress',
+                        data: [20, 35, 50, 65, 75, 85],
+                        borderColor: '#4A90E2',
+                        backgroundColor: '#4A90E220',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function editProfile() {
+            alert('Edit profile feature coming soon!');
+        }
+
+        function exportData() {
+            // Create a simple data export
+            const data = {
+                student: {
+                    name: '{{ student.first_name }} {{ student.last_name }}',
+                    grade: {{ student.grade }},
+                    school: '{{ student.school_name }}',
+                    district: '{{ student.district }}'
+                },
+                progress: {
+                    mathematics: 85,
+                    science: 78,
+                    english: 92
+                },
+                achievements: ['Math Master', 'Science Explorer', '7-Day Streak']
+            };
+
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'shiksha_leap_data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '/logout';
+            }
+        }
+    </script>
+</body>
+</html>

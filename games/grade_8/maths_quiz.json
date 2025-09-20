@@ -1,0 +1,93 @@
+{
+  "quiz_id": "grade_8_maths_algebra",
+  "title": "Algebra Fundamentals Quiz",
+  "description": "Test your understanding of basic algebra concepts",
+  "grade": 8,
+  "subject": "Mathematics",
+  "difficulty": "medium",
+  "time_limit": 900,
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "question": "Solve for x: 2x + 5 = 13",
+      "options": [
+        "x = 3",
+        "x = 4",
+        "x = 5",
+        "x = 6"
+      ],
+      "correct_answer": 1,
+      "explanation": "2x + 5 = 13, so 2x = 8, therefore x = 4"
+    },
+    {
+      "id": 2,
+      "type": "multiple_choice",
+      "question": "What is the coefficient of x in the expression 7x + 3?",
+      "options": [
+        "3",
+        "7",
+        "10",
+        "x"
+      ],
+      "correct_answer": 1,
+      "explanation": "The coefficient is the number multiplied by the variable, which is 7."
+    },
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "question": "Simplify: 3x + 2x - x",
+      "options": [
+        "4x",
+        "5x",
+        "6x",
+        "2x"
+      ],
+      "correct_answer": 0,
+      "explanation": "3x + 2x - x = 5x - x = 4x"
+    },
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "question": "If y = 2x + 1 and x = 3, what is the value of y?",
+      "options": [
+        "6",
+        "7",
+        "8",
+        "9"
+      ],
+      "correct_answer": 1,
+      "explanation": "y = 2(3) + 1 = 6 + 1 = 7"
+    },
+    {
+      "id": 5,
+      "type": "multiple_choice",
+      "question": "Which of the following is a linear equation?",
+      "options": [
+        "x² + 2x = 5",
+        "3x + 4 = 10",
+        "x³ - 1 = 0",
+        "√x = 4"
+      ],
+      "correct_answer": 1,
+      "explanation": "A linear equation has variables with power 1 only. 3x + 4 = 10 is linear."
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "points_per_question": 20,
+    "passing_score": 60
+  },
+  "achievements": [
+    {
+      "name": "Algebra Apprentice",
+      "description": "Complete your first algebra quiz",
+      "condition": "first_completion"
+    },
+    {
+      "name": "Math Master",
+      "description": "Score 90% or higher in any math quiz",
+      "condition": "score_90_plus"
+    }
+  ]
+}

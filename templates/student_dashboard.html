@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="student_dashboard_title">Student Dashboard - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="window.location.href='/home'">← <span data-i18n-key="back">Back</span></button>
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Shiksha Leap" class="logo-img">
+                <h1 data-i18n-key="app_name">Shiksha Leap</h1>
+            </div>
+            <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+        </header>
+
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2><span data-i18n-key="welcome_student">Welcome</span>, {{ student.first_name }}! 🎉</h2>
+                <p>{{ student.school_name }} • Grade {{ student.grade }}</p>
+                <p>{{ student.district }}</p>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-value" id="totalPoints">0</div>
+                    <div class="stat-label" data-i18n-key="total_points">Total Points</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="dayStreak">0</div>
+                    <div class="stat-label" data-i18n-key="day_streak">Day Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-value" id="avgScore">0%</div>
+                    <div class="stat-label" data-i18n-key="avg_score">Avg Score</div>
+                </div>
+            </div>
+
+            <!-- Grade Selection -->
+            <div class="section">
+                <h3 data-i18n-key="choose_grade">Choose Your Grade</h3>
+                <p data-i18n-key="grade_subtitle">Select a grade to start learning</p>
+                
+                <div class="grade-grid">
+                    {% for grade in range(6, 13) %}
+                    <div class="grade-card {% if student.grade == grade %}current-grade{% endif %}" 
+                         onclick="window.location.href='/student/grade/{{ grade }}'">
+                        <div class="grade-number">{{ grade }}</div>
+                        <div class="grade-label">Grade {{ grade }}</div>
+                        {% if student.grade == grade %}
+                        <div class="current-badge" data-i18n-key="your_grade">Your Grade</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="section">
+                <h3 data-i18n-key="recent_activity">Recent Activity</h3>
+                <div id="recentActivity" class="activity-list">
+                    <!-- Activity items will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="section">
+                <h3 data-i18n-key="quick_actions">Quick Actions</h3>
+                <div class="action-grid">
+                    <div class="action-card" onclick="window.location.href='/student/grade/{{ student.grade }}'">
+                        <div class="action-icon">📚</div>
+                        <h4 data-i18n-key="continue_learning">Continue Learning</h4>
+                        <p data-i18n-key="your_grade_content">Your grade content</p>
+                    </div>
+                    
+                    <div class="action-card" onclick="window.location.href='/student/profile'">
+                        <div class="action-icon">🏅</div>
+                        <h4 data-i18n-key="view_achievements">View Achievements</h4>
+                        <p data-i18n-key="badges_earned">Badges earned</p>
+                    </div>
+                    
+                    <div class="action-card" onclick="showLeaderboard()">
+                        <div class="action-icon">🏆</div>
+                        <h4 data-i18n-key="leaderboard">Leaderboard</h4>
+                        <p data-i18n-key="compare_progress">Compare your progress</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        // Load student stats and recent activity
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStudentStats();
+            loadRecentActivity();
+        });
+
+        async function loadStudentStats() {
+            // Mock data for now - in production, fetch from API
+            document.getElementById('totalPoints').textContent = '1,250';
+            document.getElementById('dayStreak').textContent = '7';
+            document.getElementById('avgScore').textContent = '85%';
+        }
+
+        async function loadRecentActivity() {
+            const activityContainer = document.getElementById('recentActivity');
+            
+            // Mock recent activity data
+            const activities = [
+                { type: 'quiz', subject: 'Math', action: 'completed_math_quiz', time: '2 hours ago', score: 85 },
+                { type: 'achievement', subject: 'Math', action: 'earned_badge', time: '1 day ago', badge: 'Math Master' },
+                { type: 'game', subject: 'Science', action: 'played_science_game', time: '2 days ago', score: 92 }
+            ];
+
+            activityContainer.innerHTML = '';
+            activities.forEach(activity => {
+                const div = document.createElement('div');
+                div.className = 'activity-item';
+                div.innerHTML = `
+                    <div class="activity-icon">${activity.type === 'quiz' ? '📝' : activity.type === 'achievement' ? '🏅' : '🎮'}</div>
+                    <div class="activity-content">
+                        <div class="activity-text" data-i18n-key="${activity.action}">${activity.action}</div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                    <div class="activity-score">${activity.score ? activity.score + '%' : activity.badge || ''}</div>
+                `;
+                activityContainer.appendChild(div);
+            });
+        }
+
+        function showLeaderboard() {
+            // Simple leaderboard modal or redirect
+            alert('Leaderboard feature coming soon!');
+        }
+    </script>
+</body>
+</html>

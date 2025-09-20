@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="game_player_title">Game Player - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="history.back()">← <span data-i18n-key="back">Back</span></button>
+            <div class="game-stats">
+                <div class="stat">
+                    <span data-i18n-key="score">Score</span>: <span id="gameScore">0</span>
+                </div>
+                <div class="stat">
+                    <span data-i18n-key="time">Time</span>: <span id="gameTime">00:00</span>
+                </div>
+            </div>
+            <button class="pause-btn" onclick="pauseGame()" data-i18n-key="pause">Pause</button>
+        </header>
+
+        <main class="game-container">
+            <!-- Game Loading -->
+            <div id="gameLoading" class="game-loading">
+                <div class="spinner"></div>
+                <p data-i18n-key="loading_game">Loading game...</p>
+            </div>
+
+            <!-- Game Content -->
+            <div id="gameContent" class="game-content hidden">
+                <!-- Game will be loaded here -->
+            </div>
+
+            <!-- Game Controls -->
+            <div id="gameControls" class="game-controls hidden">
+                <button class="control-btn" onclick="showHint()" data-i18n-key="hint">Hint</button>
+                <button class="control-btn" onclick="restartGame()" data-i18n-key="restart">Restart</button>
+            </div>
+        </main>
+
+        <!-- Game Complete Modal -->
+        <div id="gameCompleteModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 data-i18n-key="game_complete">Game Complete!</h2>
+                <div class="game-results">
+                    <div class="result-item">
+                        <span data-i18n-key="final_score">Final Score</span>: <span id="finalScore">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span data-i18n-key="time_taken">Time Taken</span>: <span id="timeTaken">00:00</span>
+                    </div>
+                    <div class="result-item">
+                        <span data-i18n-key="accuracy">Accuracy</span>: <span id="accuracy">0%</span>
+                    </div>
+                </div>
+                
+                <div id="newAchievement" class="achievement-notification hidden">
+                    <div class="achievement-icon">🏆</div>
+                    <div>
+                        <h3 data-i18n-key="new_achievement">New Achievement!</h3>
+                        <p id="achievementName"></p>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="playAgain()" data-i18n-key="play_again">Play Again</button>
+                    <button class="btn btn-primary" onclick="continueToNext()" data-i18n-key="continue">Continue</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Modal -->
+        <div id="pauseModal" class="modal hidden">
+            <div class="modal-content">
+                <h2 data-i18n-key="game_paused">Game Paused</h2>
+                <p data-i18n-key="pause_message">Take a break! Your progress is saved.</p>
+                <div class="modal-actions">
+                    <button class="btn btn-primary" onclick="resumeGame()" data-i18n-key="resume">Resume</button>
+                    <button class="btn btn-secondary" onclick="quitGame()" data-i18n-key="quit">Quit Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        let gameState = {
+            score: 0,
+            startTime: Date.now(),
+            isPaused: false,
+            currentGame: null
+        };
+
+        let gameTimer;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadGame();
+            startGameTimer();
+        });
+
+        async function loadGame() {
+            const gamePath = '{{ game_path }}';
+            
+            try {
+                // Simulate game loading
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Hide loading, show game
+                document.getElementById('gameLoading').classList.add('hidden');
+                document.getElementById('gameContent').classList.remove('hidden');
+                document.getElementById('gameControls').classList.remove('hidden');
+                
+                // Load mock game content
+                loadMockGame();
+                
+            } catch (error) {
+                console.error('Error loading game:', error);
+                document.getElementById('gameLoading').innerHTML = '<p>Error loading game. Please try again.</p>';
+            }
+        }
+
+        function loadMockGame() {
+            const gameContent = document.getElementById('gameContent');
+            gameContent.innerHTML = `
+                <div class="mock-game">
+                    <h3>Math Quiz Game</h3>
+                    <div class="question">
+                        <p>What is 15 + 27?</p>
+                        <div class="options">
+                            <button class="option-btn" onclick="selectAnswer(42, true)">42</button>
+                            <button class="option-btn" onclick="selectAnswer(41, false)">41</button>
+                            <button class="option-btn" onclick="selectAnswer(43, false)">43</button>
+                            <button class="option-btn" onclick="selectAnswer(40, false)">40</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectAnswer(answer, isCorrect) {
+            if (isCorrect) {
+                gameState.score += 10;
+                updateScore();
+                
+                // Simulate game completion after correct answer
+                setTimeout(() => {
+                    completeGame();
+                }, 1000);
+            } else {
+                // Show feedback for wrong answer
+                alert('Try again!');
+            }
+        }
+
+        function startGameTimer() {
+            gameTimer = setInterval(() => {
+                if (!gameState.isPaused) {
+                    const elapsed = Math.floor((Date.now() - gameState.startTime) / 1000);
+                    const minutes = Math.floor(elapsed / 60);
+                    const seconds = elapsed % 60;
+                    document.getElementById('gameTime').textContent = 
+                        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function updateScore() {
+            document.getElementById('gameScore').textContent = gameState.score;
+        }
+
+        function pauseGame() {
+            gameState.isPaused = true;
+            document.getElementById('pauseModal').classList.remove('hidden');
+        }
+
+        function resumeGame() {
+            gameState.isPaused = false;
+            document.getElementById('pauseModal').classList.add('hidden');
+        }
+
+        function quitGame() {
+            if (confirm('Are you sure you want to quit? Your progress will be lost.')) {
+                history.back();
+            }
+        }
+
+        function restartGame() {
+            if (confirm('Are you sure you want to restart?')) {
+                gameState.score = 0;
+                gameState.startTime = Date.now();
+                updateScore();
+                loadMockGame();
+            }
+        }
+
+        function showHint() {
+            alert('Hint: Add the numbers carefully!');
+        }
+
+        function completeGame() {
+            clearInterval(gameTimer);
+            
+            const timeTaken = Math.floor((Date.now() - gameState.startTime) / 1000);
+            const minutes = Math.floor(timeTaken / 60);
+            const seconds = timeTaken % 60;
+            
+            document.getElementById('finalScore').textContent = gameState.score;
+            document.getElementById('timeTaken').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('accuracy').textContent = '100%';
+            
+            // Check for achievements
+            if (gameState.score >= 10) {
+                showAchievement('Math Beginner');
+            }
+            
+            // Log game performance
+            logGamePerformance();
+            
+            document.getElementById('gameCompleteModal').classList.remove('hidden');
+        }
+
+        function showAchievement(achievementName) {
+            document.getElementById('achievementName').textContent = achievementName;
+            document.getElementById('newAchievement').classList.remove('hidden');
+        }
+
+        async function logGamePerformance() {
+            const gameData = {
+                game_id: '{{ game_path }}',
+                subject: 'Mathematics',
+                grade: 8,
+                score: gameState.score,
+                max_score: 10,
+                time_spent: Math.floor((Date.now() - gameState.startTime) / 1000)
+            };
+
+            try {
+                await fetch('/api/game-log', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(gameData)
+                });
+            } catch (error) {
+                console.error('Error logging game performance:', error);
+                // Store offline for later sync
+                storeOfflineLog(gameData);
+            }
+        }
+
+        function storeOfflineLog(gameData) {
+            const offlineLogs = JSON.parse(localStorage.getItem('offlineGameLogs') || '[]');
+            offlineLogs.push({
+                ...gameData,
+                timestamp: Date.now()
+            });
+            localStorage.setItem('offlineGameLogs', JSON.stringify(offlineLogs));
+        }
+
+        function playAgain() {
+            document.getElementById('gameCompleteModal').classList.add('hidden');
+            restartGame();
+        }
+
+        function continueToNext() {
+            history.back();
+        }
+    </script>
+</body>
+</html>

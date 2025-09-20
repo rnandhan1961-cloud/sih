@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="teacher_dashboard_title">Teacher Dashboard - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="window.location.href='/home'">← <span data-i18n-key="back">Back</span></button>
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Shiksha Leap" class="logo-img">
+                <h1 data-i18n-key="app_name">Shiksha Leap</h1>
+            </div>
+            <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+        </header>
+
+        <main class="main-content">
+            <!-- Welcome Section -->
+            <div class="welcome-section">
+                <h2>Welcome, {{ teacher.first_name }} {{ teacher.last_name }}! 👩‍🏫</h2>
+                <p>{{ teacher.school_name }} • {{ teacher.qualification }}</p>
+                <p>{{ teacher.district }}, {{ teacher.state }}</p>
+            </div>
+
+            <!-- Dashboard Overview -->
+            <div class="section">
+                <h3 data-i18n-key="dashboard_overview">Dashboard Overview</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-value" id="totalStudents">0</div>
+                        <div class="stat-label" data-i18n-key="total_students">Total Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-value" id="activeStudents">0</div>
+                        <div class="stat-label" data-i18n-key="active_students">Active Students</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-value" id="avgClassScore">0%</div>
+                        <div class="stat-label" data-i18n-key="avg_class_score">Avg Class Score</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="section">
+                <h3 data-i18n-key="filter_students">Filter Students</h3>
+                <div class="filters">
+                    <select id="gradeFilter" class="filter-select">
+                        <option value="" data-i18n-key="all_grades">All Grades</option>
+                        <option value="6">Grade 6</option>
+                        <option value="7">Grade 7</option>
+                        <option value="8">Grade 8</option>
+                        <option value="9">Grade 9</option>
+                        <option value="10">Grade 10</option>
+                        <option value="11">Grade 11</option>
+                        <option value="12">Grade 12</option>
+                    </select>
+                    
+                    <input type="text" id="searchInput" class="filter-input" 
+                           placeholder="Search students..." data-i18n-key="search_students">
+                    
+                    <button class="btn btn-primary" onclick="applyFilters()" data-i18n-key="apply_filters">
+                        Apply Filters
+                    </button>
+                </div>
+            </div>
+
+            <!-- Student Performance Table -->
+            <div class="section">
+                <h3 data-i18n-key="student_performance">Student Performance</h3>
+                <div class="table-container">
+                    <table class="performance-table">
+                        <thead>
+                            <tr>
+                                <th data-i18n-key="student_name">Student Name</th>
+                                <th data-i18n-key="grade">Grade</th>
+                                <th data-i18n-key="school">School</th>
+                                <th data-i18n-key="marks">Marks</th>
+                                <th data-i18n-key="last_active">Last Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsTableBody">
+                            <!-- Student data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Subject-wise Performance Chart -->
+            <div class="section">
+                <h3 data-i18n-key="subject_wise_performance">Subject-wise Performance</h3>
+                <div class="chart-container">
+                    <canvas id="subjectChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <!-- Class Progress Over Time -->
+            <div class="section">
+                <h3 data-i18n-key="class_progress">Class Progress Over Time</h3>
+                <div class="chart-container">
+                    <canvas id="progressChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/chart.min.js"></script>
+    <script>
+        let dashboardData = {
+            students: [],
+            subjectPerformance: []
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDashboardData();
+        });
+
+        async function loadDashboardData() {
+            try {
+                const response = await fetch('/api/teacher/dashboard-data');
+                dashboardData = await response.json();
+                
+                updateStats();
+                loadStudentsTable();
+                loadSubjectChart();
+                loadProgressChart();
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                loadMockData();
+            }
+        }
+
+        function loadMockData() {
+            // Mock data for demonstration
+            dashboardData = {
+                students: [
+                    { id: 1, first_name: 'Rahul', last_name: 'Kumar', grade: 8, school_name: 'ABC School', avg_score: 85, last_activity: '2 hours ago' },
+                    { id: 2, first_name: 'Priya', last_name: 'Sharma', grade: 8, school_name: 'ABC School', avg_score: 92, last_activity: '1 day ago' },
+                    { id: 3, first_name: 'Amit', last_name: 'Singh', grade: 9, school_name: 'ABC School', avg_score: 78, last_activity: '3 hours ago' }
+                ],
+                subjectPerformance: [
+                    { subject: 'Mathematics', avg_score: 82, total_attempts: 150 },
+                    { subject: 'Science', avg_score: 78, total_attempts: 120 },
+                    { subject: 'English', avg_score: 85, total_attempts: 100 },
+                    { subject: 'Hindi', avg_score: 80, total_attempts: 90 }
+                ]
+            };
+            
+            updateStats();
+            loadStudentsTable();
+            loadSubjectChart();
+            loadProgressChart();
+        }
+
+        function updateStats() {
+            document.getElementById('totalStudents').textContent = dashboardData.students.length;
+            document.getElementById('activeStudents').textContent = dashboardData.students.filter(s => s.last_activity.includes('hour')).length;
+            
+            const avgScore = dashboardData.students.reduce((sum, student) => sum + (student.avg_score || 0), 0) / dashboardData.students.length;
+            document.getElementById('avgClassScore').textContent = Math.round(avgScore) + '%';
+        }
+
+        function loadStudentsTable() {
+            const tbody = document.getElementById('studentsTableBody');
+            tbody.innerHTML = '';
+
+            dashboardData.students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.first_name} ${student.last_name}</td>
+                    <td>Grade ${student.grade}</td>
+                    <td>${student.school_name}</td>
+                    <td>${student.avg_score || 0}%</td>
+                    <td>${student.last_activity || 'Never'}</td>
+                    <td>
+                        <button class="btn-small" onclick="viewStudentDetails(${student.id})" data-i18n-key="view_details">
+                            View Details
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function loadSubjectChart() {
+            const ctx = document.getElementById('subjectChart').getContext('2d');
+            
+            const subjects = dashboardData.subjectPerformance.map(s => s.subject);
+            const scores = dashboardData.subjectPerformance.map(s => s.avg_score);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: subjects,
+                    datasets: [{
+                        label: 'Average Score (%)',
+                        data: scores,
+                        backgroundColor: ['#4A90E2', '#50C878', '#FF6B6B', '#FFD93D'],
+                        borderColor: ['#4A90E2', '#50C878', '#FF6B6B', '#FFD93D'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        function loadProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                    datasets: [{
+                        label: 'Class Average',
+                        data: [65, 70, 75, 78, 82, 85],
+                        borderColor: '#4A90E2',
+                        backgroundColor: '#4A90E220',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+
+        function applyFilters() {
+            const gradeFilter = document.getElementById('gradeFilter').value;
+            const searchFilter = document.getElementById('searchInput').value.toLowerCase();
+            
+            // Filter students based on criteria
+            let filteredStudents = dashboardData.students;
+            
+            if (gradeFilter) {
+                filteredStudents = filteredStudents.filter(student => student.grade == gradeFilter);
+            }
+            
+            if (searchFilter) {
+                filteredStudents = filteredStudents.filter(student => 
+                    student.first_name.toLowerCase().includes(searchFilter) ||
+                    student.last_name.toLowerCase().includes(searchFilter)
+                );
+            }
+            
+            // Update table with filtered data
+            const tbody = document.getElementById('studentsTableBody');
+            tbody.innerHTML = '';
+            
+            filteredStudents.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.first_name} ${student.last_name}</td>
+                    <td>Grade ${student.grade}</td>
+                    <td>${student.school_name}</td>
+                    <td>${student.avg_score || 0}%</td>
+                    <td>${student.last_activity || 'Never'}</td>
+                    <td>
+                        <button class="btn-small" onclick="viewStudentDetails(${student.id})">
+                            View Details
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function viewStudentDetails(studentId) {
+            alert(`Student details for ID: ${studentId} - Feature coming soon!`);
+        }
+    </script>
+</body>
+</html>

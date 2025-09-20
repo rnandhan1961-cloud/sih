@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="home_title">Choose Your Role - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="history.back()">← <span data-i18n-key="back">Back</span></button>
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Shiksha Leap" class="logo-img">
+                <h1 data-i18n-key="app_name">Shiksha Leap</h1>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="welcome-section">
+                <h2 data-i18n-key="choose_role">Choose Your Role</h2>
+                <p data-i18n-key="role_subtitle">Select how you want to use Shiksha Leap</p>
+            </div>
+
+            <div class="role-selection">
+                <div class="role-card" onclick="selectRole('student')">
+                    <div class="role-icon">👨‍🎓</div>
+                    <h3 data-i18n-key="student">Student</h3>
+                    <p data-i18n-key="student_desc">Learn through games and quizzes</p>
+                    <ul class="role-features">
+                        <li data-i18n-key="interactive_games">• Interactive Games</li>
+                        <li data-i18n-key="progress_tracking">• Progress Tracking</li>
+                        <li data-i18n-key="achievements">• Achievements</li>
+                    </ul>
+                </div>
+
+                <div class="role-card" onclick="selectRole('teacher')">
+                    <div class="role-icon">👩‍🏫</div>
+                    <h3 data-i18n-key="teacher">Teacher</h3>
+                    <p data-i18n-key="teacher_desc">Monitor student progress and performance</p>
+                    <ul class="role-features">
+                        <li data-i18n-key="student_analytics">• Student Analytics</li>
+                        <li data-i18n-key="performance_reports">• Performance Reports</li>
+                        <li data-i18n-key="class_management">• Class Management</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        function selectRole(role) {
+            // Update user role and redirect to registration
+            fetch('/api/update-role', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ role: role })
+            }).then(() => {
+                window.location.href = '/registration';
+            }).catch(() => {
+                // Fallback - just redirect to registration
+                window.location.href = '/registration';
+            });
+        }
+    </script>
+</body>
+</html>

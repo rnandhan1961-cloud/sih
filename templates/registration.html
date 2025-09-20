@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n-key="registration_title">Complete Registration - Shiksha Leap</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header with Back Button -->
+        <header class="header">
+            <button class="back-btn" onclick="history.back()">← <span data-i18n-key="back">Back</span></button>
+            <div class="logo">
+                <img src="/static/images/logo.png" alt="Shiksha Leap" class="logo-img">
+                <h1 data-i18n-key="app_name">Shiksha Leap</h1>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="welcome-section">
+                <h2 data-i18n-key="complete_registration">Complete Your Registration</h2>
+            </div>
+
+            <!-- Role Toggle -->
+            <div class="role-toggle">
+                <button id="studentToggle" class="toggle-btn active" onclick="showStudentForm()">
+                    <span data-i18n-key="student">Student</span>
+                </button>
+                <button id="teacherToggle" class="toggle-btn" onclick="showTeacherForm()">
+                    <span data-i18n-key="teacher">Teacher</span>
+                </button>
+            </div>
+
+            <!-- Student Registration Form -->
+            <form id="studentForm" class="registration-form">
+                <h3 data-i18n-key="student_registration">Student Registration</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="first_name">First Name</label>
+                        <input type="text" name="first_name" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="last_name">Last Name</label>
+                        <input type="text" name="last_name" required class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="date_of_birth">Date of Birth</label>
+                        <input type="date" name="dob" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="grade">Grade</label>
+                        <select name="grade" required class="form-input">
+                            <option value="" data-i18n-key="select_grade">Select Grade</option>
+                            <option value="6">Grade 6</option>
+                            <option value="7">Grade 7</option>
+                            <option value="8">Grade 8</option>
+                            <option value="9">Grade 9</option>
+                            <option value="10">Grade 10</option>
+                            <option value="11">Grade 11</option>
+                            <option value="12">Grade 12</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n-key="udise_code">UDISE Code</label>
+                    <input type="text" id="studentUdiseInput" name="udise_code" required class="form-input" placeholder="Enter UDISE Code">
+                    <div id="studentSchoolSuggestions" class="suggestions hidden"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="school_name">School Name</label>
+                        <input type="text" id="studentSchoolName" name="school_name" readonly class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="district">District</label>
+                        <input type="text" id="studentDistrict" name="district" readonly class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="state">State</label>
+                        <select name="state" required class="form-input">
+                            <option value="" data-i18n-key="select_state">Select State</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="medium">Medium of Instruction</label>
+                        <select name="medium" required class="form-input">
+                            <option value="" data-i18n-key="select_medium">Select Medium</option>
+                            <option value="English">English</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Odia">Odia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <span data-i18n-key="complete_registration">Complete Registration</span>
+                </button>
+            </form>
+
+            <!-- Teacher Registration Form (Hidden initially) -->
+            <form id="teacherForm" class="registration-form hidden">
+                <h3 data-i18n-key="teacher_registration">Teacher Registration</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="first_name">First Name</label>
+                        <input type="text" name="first_name" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="last_name">Last Name</label>
+                        <input type="text" name="last_name" required class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="date_of_birth">Date of Birth</label>
+                        <input type="date" name="dob" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="qualification">Qualification</label>
+                        <select name="qualification" required class="form-input">
+                            <option value="" data-i18n-key="select_qualification">Select Qualification</option>
+                            <option value="B.Ed">B.Ed</option>
+                            <option value="M.Ed">M.Ed</option>
+                            <option value="B.A">B.A</option>
+                            <option value="M.A">M.A</option>
+                            <option value="B.Sc">B.Sc</option>
+                            <option value="M.Sc">M.Sc</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label data-i18n-key="udise_code">UDISE Code</label>
+                    <input type="text" id="teacherUdiseInput" name="udise_code" required class="form-input" placeholder="Enter UDISE Code">
+                    <div id="teacherSchoolSuggestions" class="suggestions hidden"></div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="school_name">School Name</label>
+                        <input type="text" id="teacherSchoolName" name="school_name" readonly class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="district">District</label>
+                        <input type="text" id="teacherDistrict" name="district" readonly class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n-key="state">State</label>
+                        <select name="state" required class="form-input">
+                            <option value="" data-i18n-key="select_state">Select State</option>
+                            <option value="Odisha">Odisha</option>
+                            <option value="West Bengal">West Bengal</option>
+                            <option value="Jharkhand">Jharkhand</option>
+                            <option value="Chhattisgarh">Chhattisgarh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n-key="medium">Medium of Teaching</label>
+                        <select name="medium" required class="form-input">
+                            <option value="" data-i18n-key="select_medium">Select Medium</option>
+                            <option value="English">English</option>
+                            <option value="Hindi">Hindi</option>
+                            <option value="Tamil">Tamil</option>
+                            <option value="Odia">Odia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <span data-i18n-key="complete_registration">Complete Registration</span>
+                </button>
+            </form>
+        </main>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script>
+        let currentRole = 'student';
+
+        function showStudentForm() {
+            currentRole = 'student';
+            document.getElementById('studentForm').classList.remove('hidden');
+            document.getElementById('teacherForm').classList.add('hidden');
+            document.getElementById('studentToggle').classList.add('active');
+            document.getElementById('teacherToggle').classList.remove('active');
+        }
+
+        function showTeacherForm() {
+            currentRole = 'teacher';
+            document.getElementById('teacherForm').classList.remove('hidden');
+            document.getElementById('studentForm').classList.add('hidden');
+            document.getElementById('teacherToggle').classList.add('active');
+            document.getElementById('studentToggle').classList.remove('active');
+        }
+
+        // UDISE Code Autofill
+        function setupUdiseAutofill(inputId, suggestionsId, schoolNameId, districtId) {
+            const input = document.getElementById(inputId);
+            const suggestions = document.getElementById(suggestionsId);
+            const schoolNameInput = document.getElementById(schoolNameId);
+            const districtInput = document.getElementById(districtId);
+
+            input.addEventListener('input', async function() {
+                const query = this.value.trim();
+                if (query.length < 3) {
+                    suggestions.classList.add('hidden');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/api/school-search?q=${encodeURIComponent(query)}`);
+                    const schools = await response.json();
+
+                    if (schools.length > 0) {
+                        suggestions.innerHTML = '';
+                        schools.forEach(school => {
+                            const div = document.createElement('div');
+                            div.className = 'suggestion-item';
+                            div.innerHTML = `
+                                <strong>${school.udise_code}</strong><br>
+                                <small>${school.school_name}</small><br>
+                                <small>${school.district}</small>
+                            `;
+                            div.onclick = () => {
+                                input.value = school.udise_code;
+                                schoolNameInput.value = school.school_name;
+                                districtInput.value = school.district;
+                                suggestions.classList.add('hidden');
+                            };
+                            suggestions.appendChild(div);
+                        });
+                        suggestions.classList.remove('hidden');
+                    } else {
+                        suggestions.classList.add('hidden');
+                    }
+                } catch (error) {
+                    console.error('Error fetching schools:', error);
+                    suggestions.classList.add('hidden');
+                }
+            });
+
+            // Hide suggestions when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+                    suggestions.classList.add('hidden');
+                }
+            });
+        }
+
+        // Setup autofill for both forms
+        setupUdiseAutofill('studentUdiseInput', 'studentSchoolSuggestions', 'studentSchoolName', 'studentDistrict');
+        setupUdiseAutofill('teacherUdiseInput', 'teacherSchoolSuggestions', 'teacherSchoolName', 'teacherDistrict');
+
+        // Form submissions
+        document.getElementById('studentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await submitRegistration('student', this);
+        });
+
+        document.getElementById('teacherForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            await submitRegistration('teacher', this);
+        });
+
+        async function submitRegistration(role, form) {
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            showLoading(true);
+
+            try {
+                const response = await fetch(`/api/register-${role}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    window.location.href = result.redirect;
+                } else {
+                    alert(result.error || 'Registration failed');
+                }
+            } catch (error) {
+                alert('Network error. Please try again.');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function showLoading(show) {
+            const overlay = document.getElementById('loadingOverlay');
+            if (show) {
+                overlay.classList.remove('hidden');
+            } else {
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>

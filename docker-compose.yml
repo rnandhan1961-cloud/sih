@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  shiksha-leap:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./shiksha_leap.db:/app/shiksha_leap.db
+      - ./static:/app/static
+      - ./games:/app/games
+    environment:
+      - FLASK_ENV=production
+      - FLASK_DEBUG=0
+    restart: unless-stopped
+    
+  # Optional: Add nginx for production
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - shiksha-leap
+    restart: unless-stopped

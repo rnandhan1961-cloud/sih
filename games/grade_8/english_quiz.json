@@ -1,0 +1,94 @@
+{
+  "quiz_id": "grade_8_english_comprehension",
+  "title": "English Comprehension Quiz",
+  "description": "Test your reading comprehension skills",
+  "grade": 8,
+  "subject": "English",
+  "difficulty": "medium",
+  "time_limit": 600,
+  "questions": [
+    {
+      "id": 1,
+      "type": "multiple_choice",
+      "question": "What is the main idea of the passage?",
+      "passage": "The internet has revolutionized the way we communicate. It has made it possible for people from different parts of the world to connect instantly. Social media platforms have further enhanced this connectivity, allowing people to share their thoughts, experiences, and emotions with a global audience.",
+      "options": [
+        "The internet is expensive",
+        "The internet has changed communication globally",
+        "Social media is dangerous",
+        "People don't communicate anymore"
+      ],
+      "correct_answer": 1,
+      "explanation": "The passage discusses how the internet has revolutionized global communication."
+    },
+    {
+      "id": 2,
+      "type": "multiple_choice",
+      "question": "Which word is closest in meaning to 'revolutionized'?",
+      "options": [
+        "Destroyed",
+        "Transformed",
+        "Ignored",
+        "Complicated"
+      ],
+      "correct_answer": 1,
+      "explanation": "Revolutionized means to completely transform or change something."
+    },
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "question": "According to the passage, what have social media platforms done?",
+      "options": [
+        "Made communication slower",
+        "Enhanced connectivity",
+        "Reduced global communication",
+        "Eliminated the need for internet"
+      ],
+      "correct_answer": 1,
+      "explanation": "The passage states that social media platforms have enhanced connectivity."
+    },
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "question": "Choose the correct spelling:",
+      "options": [
+        "Recieve",
+        "Receive",
+        "Recive",
+        "Receeve"
+      ],
+      "correct_answer": 1,
+      "explanation": "The correct spelling is 'receive' - remember 'i before e except after c'."
+    },
+    {
+      "id": 5,
+      "type": "multiple_choice",
+      "question": "What is the past tense of 'run'?",
+      "options": [
+        "Runned",
+        "Ran",
+        "Running",
+        "Runs"
+      ],
+      "correct_answer": 1,
+      "explanation": "The past tense of 'run' is 'ran'."
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "points_per_question": 20,
+    "passing_score": 60
+  },
+  "achievements": [
+    {
+      "name": "English Explorer",
+      "description": "Complete your first English quiz",
+      "condition": "first_completion"
+    },
+    {
+      "name": "Comprehension Master",
+      "description": "Score 80% or higher",
+      "condition": "score_80_plus"
+    }
+  ]
+}
