@@ -1,0 +1,52 @@
+{
+  "game_id": "grade_6_maths_number_ninja",
+  "title": "ସଂଖ୍ୟା ନିଞ୍ଜା - ଗଣିତ",
+  "description": "ଗଣିତ ସଂଖ୍ୟା ଏବଂ ଗଣନା ଖେଳ",
+  "grade": 6,
+  "subject": "Mathematics",
+  "difficulty": "medium",
+  "time_limit": 600,
+  "game_type": "puzzle",
+  "odia_syllabus": true,
+  "instructions": "ଗଣିତ ସମସ୍ୟା ସମାଧାନ କରି ନିଞ୍ଜା ବନନ୍ତୁ",
+  "levels": [
+    {
+      "level": 1,
+      "title": "ଯୋଗ ଏବଂ ବିୟୋଗ",
+      "problems": [
+        {
+          "question": "୨୫ + ୧୮ = ?",
+          "answer": 43,
+          "options": [41, 42, 43, 44]
+        },
+        {
+          "question": "୫୦ - ୨୩ = ?",
+          "answer": 27,
+          "options": [25, 26, 27, 28]
+        }
+      ],
+      "points": 20
+    },
+    {
+      "level": 2,
+      "title": "ଗୁଣ ଏବଂ ଭାଗ",
+      "problems": [
+        {
+          "question": "୧୨ × ୪ = ?",
+          "answer": 48,
+          "options": [46, 47, 48, 49]
+        },
+        {
+          "question": "୮୧ ÷ ୯ = ?",
+          "answer": 9,
+          "options": [8, 9, 10, 11]
+        }
+      ],
+      "points": 30
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

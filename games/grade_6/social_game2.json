@@ -1,0 +1,38 @@
+{
+  "game_id": "grade_6_social_geography_explorer",
+  "title": "ଭୂଗୋଳ ଅନ୍ୱେଷକ - ସାମାଜିକ ବିଜ୍ଞାନ",
+  "description": "ଓଡିଶା ଏବଂ ଭାରତର ଭୂଗୋଳ ଶିଖନ୍ତୁ",
+  "grade": 6,
+  "subject": "Social Studies",
+  "difficulty": "medium",
+  "time_limit": 800,
+  "game_type": "geography",
+  "odia_syllabus": true,
+  "instructions": "ମାନଚିତ୍ର ଏବଂ ଭୌଗୋଳିକ ତଥ୍ୟ ଶିଖନ୍ତୁ",
+  "geography_topics": [
+    {
+      "title": "ଓଡିଶାର ଜିଲ୍ଲା",
+      "districts": [
+        {"name": "କଟକ", "capital": "କଟକ", "famous_for": "ରୌପ୍ୟ ନଗରୀ"},
+        {"name": "ଖୋର୍ଦ୍ଧା", "capital": "ଭୁବନେଶ୍ୱର", "famous_for": "ରାଜଧାନୀ"},
+        {"name": "ପୁରୀ", "capital": "ପୁରୀ", "famous_for": "ଜଗନ୍ନାଥ ମନ୍ଦିର"}
+      ],
+      "points": 20
+    },
+    {
+      "title": "ନଦୀ ଏବଂ ପର୍ବତ",
+      "rivers": [
+        {"name": "ମହାନଦୀ", "origin": "ଛତିଶଗଡ଼", "mouth": "ବଙ୍ଗୋପସାଗର"},
+        {"name": "ବ୍ରାହ୍ମଣୀ", "tributaries": ["ଶଙ୍ଖ", "କୋଏଲ"]}
+      ],
+      "mountains": [
+        {"name": "ପୂର୍ବଘାଟ", "highest_peak": "ଦେଓମାଲି"}
+      ],
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

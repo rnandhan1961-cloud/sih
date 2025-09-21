@@ -1,0 +1,39 @@
+{
+  "game_id": "grade_6_english_story_builder",
+  "title": "Story Builder - English",
+  "description": "Build stories using English vocabulary and grammar",
+  "grade": 6,
+  "subject": "English",
+  "difficulty": "medium",
+  "time_limit": 900,
+  "game_type": "interactive",
+  "odia_syllabus": true,
+  "instructions": "Create meaningful sentences and stories using the given words",
+  "levels": [
+    {
+      "level": 1,
+      "title": "Simple Sentences",
+      "words": ["cat", "dog", "house", "tree", "book", "water", "sun", "moon"],
+      "target_sentences": 3,
+      "points": 10
+    },
+    {
+      "level": 2,
+      "title": "Story Building",
+      "words": ["once", "upon", "time", "forest", "animals", "happy", "lived", "together"],
+      "target_sentences": 5,
+      "points": 20
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  },
+  "achievements": [
+    {
+      "name": "Story Master",
+      "description": "Create 5 perfect sentences",
+      "condition": "perfect_sentences_5"
+    }
+  ]
+}

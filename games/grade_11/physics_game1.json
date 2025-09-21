@@ -1,0 +1,46 @@
+{
+  "game_id": "grade_11_physics_mechanics_lab",
+  "title": "ଯାନ୍ତ୍ରିକ ବିଜ୍ଞାନ ଲ୍ୟାବ - ପଦାର୍ଥ ବିଜ୍ଞାନ",
+  "description": "ଗତି, ବଳ ଏବଂ ଶକ୍ତିର ନିୟମ ଶିଖନ୍ତୁ",
+  "grade": 11,
+  "subject": "Physics",
+  "difficulty": "hard",
+  "time_limit": 1200,
+  "game_type": "simulation",
+  "odia_syllabus": true,
+  "instructions": "ବିଭିନ୍ନ ପଦାର୍ଥ ବିଜ୍ଞାନ ପରୀକ୍ଷା କରି ନିୟମ ଆବିଷ୍କାର କରନ୍ତୁ",
+  "experiments": [
+    {
+      "title": "ନ୍ୟୁଟନଙ୍କ ଗତି ନିୟମ",
+      "description": "ବଳ ଏବଂ ତ୍ୱରଣର ସମ୍ପର୍କ ବୁଝନ୍ତୁ",
+      "formula": "F = ma",
+      "variables": {
+        "F": "ବଳ (ନ୍ୟୁଟନ)",
+        "m": "ଭର (କିଲୋଗ୍ରାମ)",
+        "a": "ତ୍ୱରଣ (ମିଟର/ସେକେଣ୍ଡ²)"
+      },
+      "problems": [
+        {
+          "question": "୫ କିଗ୍ରା ଭରର ଏକ ବସ୍ତୁ ଉପରେ ୨୦ ନ୍ୟୁଟନ ବଳ ପ୍ରୟୋଗ କଲେ ତ୍ୱରଣ କେତେ?",
+          "given": {"m": 5, "F": 20},
+          "answer": 4,
+          "unit": "ମିଟର/ସେକେଣ୍ଡ²"
+        }
+      ],
+      "points": 30
+    },
+    {
+      "title": "ଶକ୍ତି ସଂରକ୍ଷଣ",
+      "description": "ଗତିଜ ଏବଂ ସ୍ଥିତିଜ ଶକ୍ତିର ରୂପାନ୍ତର",
+      "formulas": {
+        "kinetic": "KE = ½mv²",
+        "potential": "PE = mgh"
+      },
+      "points": 35
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 70
+  }
+}

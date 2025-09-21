@@ -1,0 +1,35 @@
+{
+  "game_id": "grade_6_maths_shape_explorer",
+  "title": "ଆକୃତି ଅନ୍ୱେଷକ - ଗଣିତ",
+  "description": "ଜ୍ୟାମିତିକ ଆକୃତି ଏବଂ ମାପ ଶିଖନ୍ତୁ",
+  "grade": 6,
+  "subject": "Mathematics",
+  "difficulty": "medium",
+  "time_limit": 700,
+  "game_type": "visual",
+  "odia_syllabus": true,
+  "instructions": "ବିଭିନ୍ନ ଆକୃତି ଚିହ୍ନଟ କରି ସେମାନଙ୍କର ଗୁଣ ଶିଖନ୍ତୁ",
+  "levels": [
+    {
+      "level": 1,
+      "title": "ମୌଳିକ ଆକୃତି",
+      "shapes": [
+        {
+          "name": "ବର୍ଗ",
+          "properties": ["୪ଟି ସମାନ ବାହୁ", "୪ଟି ସମକୋଣ"],
+          "area_formula": "ବାହୁ × ବାହୁ"
+        },
+        {
+          "name": "ଆୟତ",
+          "properties": ["୪ଟି ବାହୁ", "ବିପରୀତ ବାହୁ ସମାନ"],
+          "area_formula": "ଦୈର୍ଘ୍ୟ × ପ୍ରସ୍ଥ"
+        }
+      ],
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

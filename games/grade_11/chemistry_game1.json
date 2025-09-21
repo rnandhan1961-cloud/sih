@@ -1,0 +1,62 @@
+{
+  "game_id": "grade_11_chemistry_periodic_master",
+  "title": "ପର୍ଯ୍ୟାୟ ସାରଣୀ ମାଷ୍ଟର - ରସାୟନ ବିଜ୍ଞାନ",
+  "description": "ପର୍ଯ୍ୟାୟ ସାରଣୀ ଏବଂ ମୌଳିକ ଗୁଣ ଶିଖନ୍ତୁ",
+  "grade": 11,
+  "subject": "Chemistry",
+  "difficulty": "hard",
+  "time_limit": 1000,
+  "game_type": "interactive_table",
+  "odia_syllabus": true,
+  "instructions": "ପର୍ଯ୍ୟାୟ ସାରଣୀରେ ମୌଳିକ ପଦାର୍ଥ ଖୋଜି ସେମାନଙ୍କର ଗୁଣ ଶିଖନ୍ତୁ",
+  "periodic_groups": [
+    {
+      "group": "କ୍ଷାର ଧାତୁ (Group 1)",
+      "elements": [
+        {
+          "symbol": "Li",
+          "name": "ଲିଥିୟମ",
+          "atomic_number": 3,
+          "properties": ["ହାଲକା ଧାତୁ", "ଜଳ ସହିତ ବିକ୍ରିୟା"]
+        },
+        {
+          "symbol": "Na",
+          "name": "ସୋଡିୟମ",
+          "atomic_number": 11,
+          "properties": ["ସାଧାରଣ ଲବଣରେ ଥାଏ", "ଜଳ ସହିତ ତୀବ୍ର ବିକ୍ରିୟା"]
+        }
+      ],
+      "points": 25
+    },
+    {
+      "group": "ହାଲୋଜେନ (Group 17)",
+      "elements": [
+        {
+          "symbol": "F",
+          "name": "ଫ୍ଲୋରିନ",
+          "atomic_number": 9,
+          "properties": ["ଅତି ସକ୍ରିୟ", "ଦାନ୍ତ ପେଷ୍ଟରେ ବ୍ୟବହାର"]
+        },
+        {
+          "symbol": "Cl",
+          "name": "କ୍ଲୋରିନ",
+          "atomic_number": 17,
+          "properties": ["ଜଳ ବିଶୁଦ୍ଧୀକରଣରେ ବ୍ୟବହାର", "ହଳଦିଆ-ସବୁଜ ଗ୍ୟାସ"]
+        }
+      ],
+      "points": 30
+    }
+  ],
+  "chemical_reactions": [
+    {
+      "reaction": "2Na + 2H₂O → 2NaOH + H₂",
+      "description": "ସୋଡିୟମ ଏବଂ ଜଳର ବିକ୍ରିୟା",
+      "products": ["ସୋଡିୟମ ହାଇଡ୍ରକ୍ସାଇଡ", "ହାଇଡ୍ରୋଜେନ ଗ୍ୟାସ"],
+      "points": 20
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 70
+  }
+}

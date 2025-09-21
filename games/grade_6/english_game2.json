@@ -1,0 +1,43 @@
+{
+  "game_id": "grade_6_english_word_adventure",
+  "title": "Word Adventure - English",
+  "description": "Adventure through vocabulary challenges",
+  "grade": 6,
+  "subject": "English",
+  "difficulty": "medium",
+  "time_limit": 600,
+  "game_type": "adventure",
+  "odia_syllabus": true,
+  "instructions": "Navigate through different levels by solving word puzzles",
+  "levels": [
+    {
+      "level": 1,
+      "title": "Animal Kingdom",
+      "challenges": [
+        {
+          "type": "match",
+          "question": "Match animals with their sounds",
+          "pairs": [["cow", "moo"], ["cat", "meow"], ["dog", "bark"], ["bird", "chirp"]]
+        }
+      ],
+      "points": 15
+    },
+    {
+      "level": 2,
+      "title": "Nature World",
+      "challenges": [
+        {
+          "type": "fill_blank",
+          "sentence": "The __ shines brightly in the sky",
+          "answer": "sun",
+          "options": ["sun", "moon", "star", "cloud"]
+        }
+      ],
+      "points": 20
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "game_id": "grade_6_science_body_explorer",
+  "title": "ଶରୀର ଅନ୍ୱେଷକ - ବିଜ୍ଞାନ",
+  "description": "ମାନବ ଶରୀରର ବିଭିନ୍ନ ଅଙ୍ଗ ଏବଂ କାର୍ଯ୍ୟ ଶିଖନ୍ତୁ",
+  "grade": 6,
+  "subject": "Science",
+  "difficulty": "medium",
+  "time_limit": 700,
+  "game_type": "anatomy",
+  "odia_syllabus": true,
+  "instructions": "ଶରୀରର ବିଭିନ୍ନ ଅଙ୍ଗ ଚିହ୍ନଟ କରି ସେମାନଙ୍କର କାର୍ଯ୍ୟ ଶିଖନ୍ତୁ",
+  "body_systems": [
+    {
+      "system": "ହୃଦପିଣ୍ଡ ଏବଂ ରକ୍ତ ସଞ୍ଚାଳନ",
+      "organs": ["ହୃଦପିଣ୍ଡ", "ରକ୍ତନଳୀ", "ରକ୍ତ"],
+      "functions": "ଶରୀରରେ ରକ୍ତ ସଞ୍ଚାଳନ",
+      "points": 20
+    },
+    {
+      "system": "ଶ୍ୱାସତନ୍ତ୍ର",
+      "organs": ["ଫୁସଫୁସ", "ନାକ", "ଗଳା"],
+      "functions": "ଅମ୍ଳଜାନ ଗ୍ରହଣ ଏବଂ କାର୍ବନ ଡାଇଅକ୍ସାଇଡ ନିର୍ଗମନ",
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

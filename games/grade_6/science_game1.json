@@ -1,0 +1,34 @@
+{
+  "game_id": "grade_6_science_nature_lab",
+  "title": "ପ୍ରକୃତି ଲ୍ୟାବ - ବିଜ୍ଞାନ",
+  "description": "ପ୍ରକୃତି ଏବଂ ବିଜ୍ଞାନର ରହସ୍ୟ ଆବିଷ୍କାର କରନ୍ତୁ",
+  "grade": 6,
+  "subject": "Science",
+  "difficulty": "medium",
+  "time_limit": 800,
+  "game_type": "experiment",
+  "odia_syllabus": true,
+  "instructions": "ବିଭିନ୍ନ ବୈଜ୍ଞାନିକ ପରୀକ୍ଷା କରି ଶିଖନ୍ତୁ",
+  "experiments": [
+    {
+      "title": "ଉଦ୍ଭିଦର ଅଂଶ",
+      "description": "ଉଦ୍ଭିଦର ବିଭିନ୍ନ ଅଂଶ ଚିହ୍ନଟ କରନ୍ତୁ",
+      "parts": ["ମୂଳ", "କାଣ୍ଡ", "ପତ୍ର", "ଫୁଲ", "ଫଳ"],
+      "functions": {
+        "ମୂଳ": "ଜଳ ଏବଂ ଖାଦ୍ୟ ଶୋଷଣ",
+        "ପତ୍ର": "ଖାଦ୍ୟ ପ୍ରସ୍ତୁତି"
+      },
+      "points": 20
+    },
+    {
+      "title": "ଜଳଚକ୍ର",
+      "description": "ଜଳଚକ୍ରର ବିଭିନ୍ନ ପର୍ଯ୍ୟାୟ ବୁଝନ୍ତୁ",
+      "stages": ["ବାଷ୍ପୀଭବନ", "ଘନୀଭବନ", "ବୃଷ୍ଟିପାତ"],
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

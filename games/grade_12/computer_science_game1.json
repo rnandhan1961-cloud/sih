@@ -1,0 +1,62 @@
+{
+  "game_id": "grade_12_cs_programming_challenge",
+  "title": "ପ୍ରୋଗ୍ରାମିଂ ଚ୍ୟାଲେଞ୍ଜ - କମ୍ପ୍ୟୁଟର ସାଇନ୍ସ",
+  "description": "ପ୍ରୋଗ୍ରାମିଂ ଏବଂ ଆଲଗୋରିଦମ ଶିଖନ୍ତୁ",
+  "grade": 12,
+  "subject": "Computer Science",
+  "difficulty": "hard",
+  "time_limit": 1500,
+  "game_type": "coding_challenge",
+  "odia_syllabus": true,
+  "instructions": "ବିଭିନ୍ନ ପ୍ରୋଗ୍ରାମିଂ ସମସ୍ୟା ସମାଧାନ କରନ୍ତୁ",
+  "programming_concepts": [
+    {
+      "concept": "ଡାଟା ଷ୍ଟ୍ରକଚର",
+      "topics": [
+        {
+          "name": "ଆରେ (Array)",
+          "description": "ସମାନ ପ୍ରକାରର ଡାଟା ସଂରକ୍ଷଣ",
+          "example": "int marks[5] = {85, 90, 78, 92, 88};",
+          "operations": ["ଇନ୍ସର୍ଟ", "ଡିଲିଟ", "ସର୍ଚ", "ସର୍ଟ"]
+        },
+        {
+          "name": "ଲିଙ୍କଡ ଲିଷ୍ଟ",
+          "description": "ଡାଇନାମିକ ଡାଟା ଷ୍ଟ୍ରକଚର",
+          "advantages": ["ଡାଇନାମିକ ସାଇଜ", "ମେମୋରି ଦକ୍ଷତା"]
+        }
+      ],
+      "points": 30
+    },
+    {
+      "concept": "ଆଲଗୋରିଦମ",
+      "algorithms": [
+        {
+          "name": "ବବଲ ସର୍ଟ",
+          "description": "ସରଳ ସର୍ଟିଂ ଆଲଗୋରିଦମ",
+          "time_complexity": "O(n²)",
+          "pseudocode": [
+            "for i = 0 to n-1:",
+            "  for j = 0 to n-i-2:",
+            "    if arr[j] > arr[j+1]:",
+            "      swap(arr[j], arr[j+1])"
+          ]
+        }
+      ],
+      "points": 35
+    }
+  ],
+  "coding_challenges": [
+    {
+      "challenge": "ଫାକ୍ଟୋରିଆଲ ଗଣନା",
+      "description": "ଏକ ସଂଖ୍ୟାର ଫାକ୍ଟୋରିଆଲ ବାହାର କରନ୍ତୁ",
+      "input": "5",
+      "expected_output": "120",
+      "algorithm": "n! = n × (n-1) × (n-2) × ... × 1",
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 75
+  }
+}

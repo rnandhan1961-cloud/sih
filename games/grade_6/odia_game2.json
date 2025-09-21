@@ -1,0 +1,30 @@
+{
+  "game_id": "grade_6_odia_story_world",
+  "title": "କାହାଣୀ ଜଗତ - ଓଡିଆ",
+  "description": "ଓଡିଆ କାହାଣୀ ଏବଂ କବିତା ଜଗତରେ ଭ୍ରମଣ",
+  "grade": 6,
+  "subject": "Odia",
+  "difficulty": "medium",
+  "time_limit": 900,
+  "game_type": "story",
+  "odia_syllabus": true,
+  "instructions": "କାହାଣୀ ପଢ଼ି ପ୍ରଶ୍ନର ଉତ୍ତର ଦିଅନ୍ତୁ",
+  "stories": [
+    {
+      "title": "ଚତୁର ଶିଆଳ",
+      "content": "ଏକ ଜଙ୍ଗଲରେ ଏକ ଚତୁର ଶିଆଳ ରହୁଥିଲା। ସେ ସବୁବେଳେ ଅନ୍ୟ ପଶୁମାନଙ୍କୁ ସାହାଯ୍ୟ କରୁଥିଲା।",
+      "questions": [
+        {
+          "question": "ଶିଆଳଟି କେମିତି ଥିଲା?",
+          "options": ["ଚତୁର", "ମୂର୍ଖ", "ଅଳସୁଆ", "କ୍ରୋଧୀ"],
+          "correct": 0
+        }
+      ],
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

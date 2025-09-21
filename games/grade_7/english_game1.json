@@ -1,0 +1,51 @@
+{
+  "game_id": "grade_7_english_grammar_quest",
+  "title": "Grammar Quest - English",
+  "description": "Master English grammar through interactive challenges",
+  "grade": 7,
+  "subject": "English",
+  "difficulty": "medium",
+  "time_limit": 900,
+  "game_type": "quest",
+  "odia_syllabus": true,
+  "instructions": "Complete grammar challenges to advance through the quest",
+  "quests": [
+    {
+      "quest": "Tense Master",
+      "challenges": [
+        {
+          "type": "identify_tense",
+          "sentence": "She is reading a book.",
+          "correct_tense": "Present Continuous",
+          "options": ["Simple Present", "Present Continuous", "Present Perfect", "Past Continuous"]
+        },
+        {
+          "type": "convert_tense",
+          "sentence": "I eat an apple.",
+          "target_tense": "Past Simple",
+          "correct_answer": "I ate an apple."
+        }
+      ],
+      "points": 30
+    },
+    {
+      "quest": "Sentence Structure",
+      "challenges": [
+        {
+          "type": "identify_parts",
+          "sentence": "The beautiful bird sings melodiously.",
+          "parts": {
+            "subject": "The beautiful bird",
+            "verb": "sings",
+            "adverb": "melodiously"
+          }
+        }
+      ],
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 65
+  }
+}

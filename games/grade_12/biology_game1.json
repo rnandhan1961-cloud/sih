@@ -1,0 +1,56 @@
+{
+  "game_id": "grade_12_biology_genetics_lab",
+  "title": "ବଂଶାନୁକ୍ରମ ଲ୍ୟାବ - ଜୀବ ବିଜ୍ଞାନ",
+  "description": "ଜିନ, DNA ଏବଂ ବଂଶାନୁକ୍ରମ ବିଜ୍ଞାନ ଶିଖନ୍ତୁ",
+  "grade": 12,
+  "subject": "Biology",
+  "difficulty": "hard",
+  "time_limit": 1200,
+  "game_type": "genetics_simulation",
+  "odia_syllabus": true,
+  "instructions": "ବଂଶାନୁକ୍ରମ ପରୀକ୍ଷା କରି ମେଣ୍ଡେଲଙ୍କ ନିୟମ ବୁଝନ୍ତୁ",
+  "genetics_concepts": [
+    {
+      "concept": "ମେଣ୍ଡେଲଙ୍କ ପ୍ରଥମ ନିୟମ",
+      "description": "ପୃଥକୀକରଣ ନିୟମ - ଆଲିଲ ଯୁଗଳ ଗ୍ୟାମେଟ ଗଠନ ସମୟରେ ପୃଥକ ହୁଏ",
+      "example": {
+        "cross": "TT × tt",
+        "f1_generation": "Tt (ସମସ୍ତ ଲମ୍ବା)",
+        "f2_generation": "TT : Tt : tt = 1:2:1",
+        "phenotype_ratio": "ଲମ୍ବା : ବାଟୁ = 3:1"
+      },
+      "points": 35
+    },
+    {
+      "concept": "DNA ଗଠନ",
+      "description": "ଡବଲ ହେଲିକ୍ସ ଗଠନ ଏବଂ ବେସ ପେୟାରିଂ",
+      "base_pairs": {
+        "A": "T (ଆଡେନିନ - ଥାଇମିନ)",
+        "G": "C (ଗୁଆନିନ - ସାଇଟୋସିନ)"
+      },
+      "functions": [
+        "ବଂଶାନୁକ୍ରମ ତଥ୍ୟ ସଂରକ୍ଷଣ",
+        "ପ୍ରୋଟିନ ସଂଶ୍ଲେଷଣ ନିୟନ୍ତ୍ରଣ"
+      ],
+      "points": 30
+    }
+  ],
+  "practical_exercises": [
+    {
+      "exercise": "ପନେଟ ସ୍କ୍ୱାର",
+      "description": "ବଂଶାନୁକ୍ରମ ଫଳାଫଳ ପୂର୍ବାନୁମାନ କରନ୍ତୁ",
+      "crosses": [
+        {
+          "parents": "Aa × Aa",
+          "offspring": ["AA", "Aa", "Aa", "aa"],
+          "ratio": "1:2:1"
+        }
+      ],
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 75
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "game_id": "grade_7_english_literature_journey",
+  "title": "Literature Journey - English",
+  "description": "Explore English literature and poetry",
+  "grade": 7,
+  "subject": "English",
+  "difficulty": "medium",
+  "time_limit": 1000,
+  "game_type": "literature",
+  "odia_syllabus": true,
+  "instructions": "Read passages and answer comprehension questions",
+  "literary_works": [
+    {
+      "title": "The Road Not Taken",
+      "author": "Robert Frost",
+      "excerpt": "Two roads diverged in a yellow wood, And sorry I could not travel both...",
+      "questions": [
+        {
+          "question": "What is the main theme of this poem?",
+          "options": ["Nature", "Choices in life", "Travel", "Seasons"],
+          "correct": 1
+        },
+        {
+          "question": "What literary device is used in 'yellow wood'?",
+          "options": ["Metaphor", "Simile", "Imagery", "Alliteration"],
+          "correct": 2
+        }
+      ],
+      "points": 25
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 65
+  }
+}

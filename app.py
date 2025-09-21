@@ -83,6 +83,20 @@ def game_player(game_path):
     
     return render_template('game_player.html', game_path=game_path)
 
+@app.route('/games/grade_<int:grade>/<game_file>')
+def serve_game_file(grade, game_file):
+    """Serve game JSON files"""
+    try:
+        game_file_path = f'games/grade_{grade}/{game_file}'
+        if os.path.exists(game_file_path):
+            with open(game_file_path, 'r', encoding='utf-8') as f:
+                game_data = json.load(f)
+            return jsonify(game_data)
+        else:
+            return jsonify({'error': 'Game not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/quiz/<path:quiz_path>')
 def quiz_player(quiz_path):
     """Quiz player"""

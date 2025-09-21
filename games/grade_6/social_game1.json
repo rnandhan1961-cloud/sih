@@ -1,0 +1,50 @@
+{
+  "game_id": "grade_6_social_odisha_heritage",
+  "title": "ଓଡିଶା ଐତିହ୍ୟ - ସାମାଜିକ ବିଜ୍ଞାନ",
+  "description": "ଓଡିଶାର ଇତିହାସ, ସଂସ୍କୃତି ଏବଂ ଐତିହ୍ୟ ଶିଖନ୍ତୁ",
+  "grade": 6,
+  "subject": "Social Studies",
+  "difficulty": "medium",
+  "time_limit": 900,
+  "game_type": "cultural",
+  "odia_syllabus": true,
+  "instructions": "ଓଡିଶାର ବିଭିନ୍ନ ସାଂସ୍କୃତିକ ଦିଗ ବିଷୟରେ ଶିଖନ୍ତୁ",
+  "topics": [
+    {
+      "title": "ଓଡିଶାର ମନ୍ଦିର",
+      "temples": [
+        {
+          "name": "ଜଗନ୍ନାଥ ମନ୍ଦିର",
+          "location": "ପୁରୀ",
+          "significance": "ଚାରଧାମ ମଧ୍ୟରୁ ଗୋଟିଏ"
+        },
+        {
+          "name": "ଲିଙ୍ଗରାଜ ମନ୍ଦିର",
+          "location": "ଭୁବନେଶ୍ୱର",
+          "significance": "ଶିବ ମନ୍ଦିର"
+        }
+      ],
+      "points": 25
+    },
+    {
+      "title": "ଓଡିଶାର ପର୍ବପର୍ବାଣୀ",
+      "festivals": [
+        {
+          "name": "ରଥଯାତ୍ରା",
+          "month": "ଆଷାଢ଼",
+          "significance": "ଜଗନ୍ନାଥଙ୍କ ଯାତ୍ରା"
+        },
+        {
+          "name": "କାଳୀପୂଜା",
+          "month": "କାର୍ତ୍ତିକ",
+          "significance": "ମା କାଳୀଙ୍କ ପୂଜା"
+        }
+      ],
+      "points": 30
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}

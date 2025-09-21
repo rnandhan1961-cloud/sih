@@ -71,6 +71,7 @@
     </div>
 
     <script src="/static/js/main.js"></script>
+    <script src="/static/js/game_loader.js"></script>
     <script>
         const currentGrade = {{ grade }};
 
@@ -80,13 +81,51 @@
         });
 
         function loadSubjects() {
-            const subjects = [
-                { id: 'mathematics', name: 'Mathematics', icon: '🔢', color: '#4A90E2', progress: 75 },
-                { id: 'science', name: 'Science', icon: '🔬', color: '#50C878', progress: 60 },
-                { id: 'english', name: 'English', icon: '📚', color: '#FF6B6B', progress: 85 },
-                { id: 'hindi', name: 'Hindi', icon: '🇮🇳', color: '#FFD93D', progress: 70 },
-                { id: 'social_studies', name: 'Social Studies', icon: '🌍', color: '#9B59B6', progress: 55 }
-            ];
+            // Get subjects based on grade using game loader
+            let subjects = [];
+            
+            if (window.gameLoader) {
+                const gradeSubjects = window.gameLoader.getSubjectsForGrade(currentGrade);
+                subjects = gradeSubjects.map(subject => {
+                    const subjectConfig = getSubjectConfig(subject.name);
+                    return {
+                        id: subject.id,
+                        name: subject.name,
+                        icon: subjectConfig.icon,
+                        color: subjectConfig.color,
+                        progress: Math.floor(Math.random() * 40) + 60, // Mock progress
+                        gameCount: subject.gameCount
+                    };
+                });
+            } else {
+                // Fallback subjects for grades 6-10
+                if (currentGrade <= 10) {
+                    subjects = [
+                        { id: 'english', name: 'English', icon: '📚', color: '#FF6B6B', progress: 85, gameCount: 2 },
+                        { id: 'odia', name: 'Odia', icon: '🏛️', color: '#FF8C00', progress: 78, gameCount: 2 },
+                        { id: 'mathematics', name: 'Mathematics', icon: '🔢', color: '#4A90E2', progress: 75, gameCount: 2 },
+                        { id: 'science', name: 'Science', icon: '🔬', color: '#50C878', progress: 60, gameCount: 2 },
+                        { id: 'social_studies', name: 'Social Studies', icon: '🌍', color: '#9B59B6', progress: 55, gameCount: 2 }
+                    ];
+                } else {
+                    // Subjects for grades 11-12
+                    subjects = [
+                        { id: 'english', name: 'English', icon: '📚', color: '#FF6B6B', progress: 85, gameCount: 2 },
+                        { id: 'odia', name: 'Odia', icon: '🏛️', color: '#FF8C00', progress: 78, gameCount: 2 },
+                        { id: 'mathematics', name: 'Mathematics', icon: '🔢', color: '#4A90E2', progress: 75, gameCount: 2 },
+                        { id: 'biology', name: 'Biology', icon: '🧬', color: '#32CD32', progress: 70, gameCount: 2 },
+                        { id: 'physics', name: 'Physics', icon: '⚛️', color: '#1E90FF', progress: 68, gameCount: 2 },
+                        { id: 'chemistry', name: 'Chemistry', icon: '🧪', color: '#FF4500', progress: 72, gameCount: 2 },
+                        { id: 'computer_science', name: 'Computer Science', icon: '💻', color: '#8A2BE2', progress: 80, gameCount: 2 },
+                        { id: 'economics', name: 'Economics', icon: '📈', color: '#DAA520', progress: 65, gameCount: 2 },
+                        { id: 'commerce', name: 'Commerce', icon: '💼', color: '#B8860B', progress: 70, gameCount: 2 },
+                        { id: 'history', name: 'History', icon: '🏺', color: '#CD853F', progress: 68, gameCount: 2 },
+                        { id: 'business_mathematics', name: 'Business Mathematics', icon: '📊', color: '#4682B4', progress: 73, gameCount: 2 },
+                        { id: 'accountancy', name: 'Accountancy', icon: '📋', color: '#2F4F4F', progress: 71, gameCount: 2 },
+                        { id: 'civics', name: 'Civics', icon: '🏛️', color: '#696969', progress: 67, gameCount: 2 }
+                    ];
+                }
+            }
 
             const grid = document.getElementById('subjectsGrid');
             grid.innerHTML = '';
@@ -103,6 +142,7 @@
                     </div>
                     <div class="subject-info">
                         <h4 data-i18n-key="${subject.id}">${subject.name}</h4>
+                        <p style="font-size: 0.8rem; color: #666; margin: 0.25rem 0;">${subject.gameCount} games available</p>
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: ${subject.progress}%; background-color: ${subject.color}"></div>
                         </div>
@@ -113,13 +153,54 @@
                 grid.appendChild(div);
             });
         }
+        
+        function getSubjectConfig(subjectName) {
+            const configs = {
+                'English': { icon: '📚', color: '#FF6B6B' },
+                'Odia': { icon: '🏛️', color: '#FF8C00' },
+                'Mathematics': { icon: '🔢', color: '#4A90E2' },
+                'Science': { icon: '🔬', color: '#50C878' },
+                'Social Studies': { icon: '🌍', color: '#9B59B6' },
+                'Biology': { icon: '🧬', color: '#32CD32' },
+                'Physics': { icon: '⚛️', color: '#1E90FF' },
+                'Chemistry': { icon: '🧪', color: '#FF4500' },
+                'Computer Science': { icon: '💻', color: '#8A2BE2' },
+                'Economics': { icon: '📈', color: '#DAA520' },
+                'Commerce': { icon: '💼', color: '#B8860B' },
+                'History': { icon: '🏺', color: '#CD853F' },
+                'Business Mathematics': { icon: '📊', color: '#4682B4' },
+                'Accountancy': { icon: '📋', color: '#2F4F4F' },
+                'Civics': { icon: '🏛️', color: '#696969' }
+            };
+            
+            return configs[subjectName] || { icon: '📖', color: '#666666' };
+        }
 
         function loadRecommendedGames() {
-            const games = [
-                { id: 'algebra_basics', name: 'Algebra Basics', subject: 'Mathematics', difficulty: 'easy', icon: '🧮' },
-                { id: 'atomic_structure', name: 'Atomic Structure', subject: 'Science', difficulty: 'medium', icon: '⚛️' },
-                { id: 'grammar_master', name: 'Grammar Master', subject: 'English', difficulty: 'easy', icon: '📝' }
-            ];
+            let games = [];
+            
+            if (window.gameLoader) {
+                // Get recommended games from game loader
+                games = window.gameLoader.getRecommendedGames(currentGrade);
+            } else {
+                // Fallback games
+                if (currentGrade <= 10) {
+                    games = [
+                        { id: 'odia_akshara_master', name: 'ଅକ୍ଷର ମାଷ୍ଟର', subject: 'Odia', difficulty: 'medium', icon: '🏛️' },
+                        { id: 'number_ninja', name: 'ସଂଖ୍ୟା ନିଞ୍ଜା', subject: 'Mathematics', difficulty: 'medium', icon: '🔢' },
+                        { id: 'nature_lab', name: 'ପ୍ରକୃତି ଲ୍ୟାବ', subject: 'Science', difficulty: 'medium', icon: '🔬' },
+                        { id: 'odisha_heritage', name: 'ଓଡିଶା ଐତିହ୍ୟ', subject: 'Social Studies', difficulty: 'medium', icon: '🌍' },
+                        { id: 'grammar_quest', name: 'Grammar Quest', subject: 'English', difficulty: 'medium', icon: '📚' }
+                    ];
+                } else {
+                    games = [
+                        { id: 'mechanics_lab', name: 'ଯାନ୍ତ୍ରିକ ବିଜ୍ଞାନ ଲ୍ୟାବ', subject: 'Physics', difficulty: 'hard', icon: '⚛️' },
+                        { id: 'periodic_master', name: 'ପର୍ଯ୍ୟାୟ ସାରଣୀ ମାଷ୍ଟର', subject: 'Chemistry', difficulty: 'hard', icon: '🧪' },
+                        { id: 'genetics_lab', name: 'ବଂଶାନୁକ୍ରମ ଲ୍ୟାବ', subject: 'Biology', difficulty: 'hard', icon: '🧬' },
+                        { id: 'programming_challenge', name: 'ପ୍ରୋଗ୍ରାମିଂ ଚ୍ୟାଲେଞ୍ଜ', subject: 'Computer Science', difficulty: 'hard', icon: '💻' }
+                    ];
+                }
+            }
 
             const grid = document.getElementById('gamesGrid');
             grid.innerHTML = '';

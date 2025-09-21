@@ -1,0 +1,32 @@
+{
+  "game_id": "grade_6_odia_akshara_master",
+  "title": "ଅକ୍ଷର ମାଷ୍ଟର - ଓଡିଆ",
+  "description": "ଓଡିଆ ଅକ୍ଷର ଏବଂ ମାତ୍ରା ଶିଖନ୍ତୁ",
+  "grade": 6,
+  "subject": "Odia",
+  "difficulty": "medium",
+  "time_limit": 800,
+  "game_type": "interactive",
+  "odia_syllabus": true,
+  "instructions": "ଅକ୍ଷର ଏବଂ ମାତ୍ରା ମିଶାଇ ଶବ୍ଦ ତିଆରି କରନ୍ତୁ",
+  "levels": [
+    {
+      "level": 1,
+      "title": "ସ୍ୱର ଅକ୍ଷର",
+      "letters": ["ଅ", "ଆ", "ଇ", "ଈ", "ଉ", "ଊ", "ଏ", "ଐ", "ଓ", "ଔ"],
+      "target_words": ["ଅମ", "ଆମ", "ଇତି", "ଉତ୍ତର"],
+      "points": 15
+    },
+    {
+      "level": 2,
+      "title": "ବ୍ୟଞ୍ଜନ ଅକ୍ଷର",
+      "letters": ["କ", "ଖ", "ଗ", "ଘ", "ଙ", "ଚ", "ଛ", "ଜ", "ଝ", "ଞ"],
+      "target_words": ["କମଲ", "ଗଛ", "ଚନ୍ଦ୍ର", "ଜଳ"],
+      "points": 20
+    }
+  ],
+  "scoring": {
+    "total_points": 100,
+    "passing_score": 60
+  }
+}
